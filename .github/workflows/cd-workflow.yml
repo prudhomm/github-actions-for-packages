@@ -78,3 +78,4 @@ jobs:
         tags: ghcr.io/prudhomm/github-actions-for-packages/tic-tac-toe:latest
         file: ./Dockerfile
         push: true
+        secrets: ${{ secrets.GITHUB_TOKEN }}
