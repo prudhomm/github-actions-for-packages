@@ -75,7 +75,6 @@ jobs:
       name: Build container image
       uses: docker/build-push-action@v2
       with: 
-        repository: prudhomm/github-actions-for-packages/tic-tac-toe
         tags: ghcr.io/prudhomm/github-actions-for-packages/tic-tac-toe:latest
         file: ./Dockerfile
         push: true
