@@ -58,11 +58,24 @@ jobs:
       with:
         name: webpack artifacts
         path: public
-    - name: Build container image
-      uses: docker/build-push-action@v1
+    -
+      name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1        
+    - 
+      name: Login to GitHub Container Registry
+      uses: docker/login-action@v1 
       with:
-        username: ${{github.actor}}
-        password: ${{secrets.GITHUB_TOKEN}}
-        registry: docker.pkg.github.com
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
+    - 
+      name: Build container image
+      uses: docker/build-push-action@v2
+      with: 
         repository: prudhomm/github-actions-for-packages/tic-tac-toe
-        tag_with_sha: true
+        tags: ghcr.io/prudhomm/github-actions-for-packages/tic-tac-toe:latest
+        file: ./Dockerfile
+        push: true
